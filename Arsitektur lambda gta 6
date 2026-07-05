@@ -3,3 +3,5 @@ hdfs dfs -ls /GTA/
 
 # 4. Ngintip isi datanya (tekan Spasi untuk lanjut halaman, Q untuk keluar)
 hdfs dfs -cat /GTA/GTA_6_2026.json | more
+
+"C:\Program Files\MongoDB\Server\8.3\bin\mongod.exe" --dbpath "C:\mongodb\data"
