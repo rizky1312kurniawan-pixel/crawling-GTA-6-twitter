@@ -1,7 +1,33 @@
-# 3. Cek apakah filenya udah sukses masuk ke folder /GTA
-hdfs dfs -ls /GTA/
+#1 Jalankan Layanan Hadoop & YARN
+Buka CMD, jalankan secara berurutan:
 
-# 4. Ngintip isi datanya (tekan Spasi untuk lanjut halaman, Q untuk keluar)
-hdfs dfs -cat /GTA/GTA_6_2026.json | more
+start-dfs
+
+start-yarn
+
+jps
+
+#2 Jalankan MongoDB Buka CMD baru
 
 "C:\Program Files\MongoDB\Server\8.3\bin\mongod.exe" --dbpath "C:\mongodb\data"
+
+#3 Masuk ke Spark Shell buka CMD baru
+
+spark-shell --packages org.mongodb.spark:mongo-spark-connector_2.12:10.6.1 --conf "spark.mongodb.write.connection.uri=mongodb://localhost:27017/gta6.komentar" --conf "spark.mongodb.read.connection.uri=mongodb://localhost:27017/gta6.komentar"
+ 
+
+val df = spark.read.option("multiline", "true").json("hdfs://localhost:9000/GTA/GTA_6_2026.json")
+
+df.write.format("mongodb").mode("overwrite").save()
+
+#4 Analisis Sentimen (Python) buka CMD baru, arahkan ke folder proyek:
+
+cd "C:\GTA 6 2026 data\oke"
+
+python sentimen_gta6.py
+
+#5 Validasi Jumlah Data
+
+use gta6
+
+db.hasil_sentimen.countDocuments()
