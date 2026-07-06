@@ -1,0 +1,10 @@
+# ini untuk ngegroup data berdasarkan field
+
+[
+  {
+    "$group": {
+      "_id": "$kategori_sentimen",
+      "jumlah": { "$sum": 1 }
+    }
+  }
+]
